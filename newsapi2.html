@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Rajat express news</title>
+</head>
+<style>
+    .topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add an active class to highlight the current page */
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+  display: none;
+}
+#card{
+    background-color:#f2f2f2;
+    height:fit-content;
+    width: 90%;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    
+    
+}
+#image{
+    
+    height: 400x;
+    width: 600px;
+    margin: auto;
+    margin-top: 10px;
+}
+img{
+    border: 2px solid rgb(0, 0, 0);
+    height: 400px;
+    width: 600px;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 10%;
+}
+p{
+    font-size: larger;
+    padding: 10px;
+    background-color: rgb(245, 174, 82);
+}
+body{
+    background-color: rgb(135, 6, 255);
+}
+#title{
+  background-color: tomato;
+  border-radius: 5%;
+}
+#news{
+  background-color: aquamarine;
+display: inline;
+margin-top: 20px;
+border-radius: 20%;
+color: blueviolet;
+}
+</style>
+<body>
+    
+    <div class="topnav" id="myTopnav">
+        <a href="#home" class="active">Home</a>
+        
+        <a href="contact.html"target="_blank">Contact</a>
+        <a href="about.html"target="_blank">About</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+
+      </div>
+      <div id="card">
+          <h1 id="news">index</h1>
+          <div id="name">
+              <h2 align="center"> Name</h2>
+          </div>
+          <div id="title">
+              <h1 align="center">title</h1>
+          </div>
+          <div id="image">
+              <img src="" alt="">
+          </div>
+
+          <div id=" content">
+                    content
+            <a href="${element['url']}" target="_blank">Read more here</a>
+          </div>
+          
+      </div>
+      <script>
+          console.log("Welcome to news api Made by Rajat Pandit");
+
+          const xhr=new XMLHttpRequest();
+
+          
+
+          xhr.open('GET','https://newsapi.org/v2/top-headlines?country=in&apiKey=0611230a26654cfab0a65a5ab5464a61','true');
+       
+          
+          xhr.onprogress=function(){
+              console.log("This is on going progress");
+          }
+         // xhr.onreadystatechange=function(){
+    //console.log(this.response);
+   // window.open(this.response);
+    
+//}
+
+          xhr.onload=function(){
+              if (this.status==200) {
+                let json=JSON.parse(this.responseText);
+                let articles=json.articles;
+               // console.log(articles);
+
+            let newsHtml;
+            articles.forEach(function(element,index){
+                let news=` <div id="card">
+          <h1 id="news"> News ${index+1}</h1>
+          <div id="name">
+              <h4 align="center">Author : ${element['author']}</h4>
+          </div>
+          <div id="title">
+              <h1 align="center">${element['title']}</h1>
+          </div>
+          <div id="image">
+           <img src="${element['urlToImage']}">
+          </div>
+            <br>
+            <br>
+          <div id=" content">
+           <p id="para"> ${element['description']}</p> 
+          <p id="para2">  ${element['content']}</p>
+            <a href="${element['url']}" target="_blank" >Read more here</a>
+          </div>
+      </div><hr>`;
+
+                newsHtml +=news;
+            });
+            let rajat=document.getElementById('card');
+            rajat.innerHTML=newsHtml;
+              }
+              else{
+                  console.log("something is error");
+              }
+            
+              
+          }
+          xhr.send();
+      </script>
+</body>
+</html> 
